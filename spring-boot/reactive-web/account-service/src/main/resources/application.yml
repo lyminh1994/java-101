@@ -1,8 +1,37 @@
 server:
-  address: 9090
-  servlet:
-    context-path: /v1/account
+  port: 8083
 
+# Configure Spring specific properties
 spring:
-  application:
-    name: account-service
+
+  # Enable/Disable hot swapping
+  devtools:
+    restart:
+      enabled: true
+      log-condition-evaluation-delta: false
+
+  # Datasource Configurations
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/reactive
+      database: reactive
+
+  # Kafka Configuration
+  cloud:
+    function:
+      definition: consumeTransaction
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          autoCreateTopics: false
+      bindings:
+        consumeTransaction-in-0:
+          consumer:
+            max-attempts: 3
+            back-off-initial-interval: 100
+          destination: transactions
+          group: account-management
+        transaction-out-0:
+          destination: transactions
