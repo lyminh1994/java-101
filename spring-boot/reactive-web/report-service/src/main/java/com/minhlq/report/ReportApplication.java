@@ -1,12 +1,12 @@
-package com.minhlq.reporting;
+package com.minhlq.report;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReportingApplication {
+public class ReportApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(ReportingApplication.class, args);
+    SpringApplication.run(ReportApplication.class, args);
   }
 }

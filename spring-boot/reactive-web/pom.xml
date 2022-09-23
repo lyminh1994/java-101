@@ -13,8 +13,8 @@
   <modules>
     <module>account-service</module>
     <module>banking-service</module>
-    <module>notification-service</module>
-    <module>reporting-service</module>
+    <module>notify-service</module>
+    <module>report-service</module>
   </modules>
 
   <properties>
