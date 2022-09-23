@@ -1,0 +1,8 @@
+server:
+  address: 9093
+  servlet:
+    context-path: /v1/reporting
+
+spring:
+  application:
+    name: reporting-service

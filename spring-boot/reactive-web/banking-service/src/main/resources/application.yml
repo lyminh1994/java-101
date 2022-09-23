@@ -1,0 +1,8 @@
+server:
+  address: 9091
+  servlet:
+    context-path: /v1/banking
+
+spring:
+  application:
+    name: banking-service

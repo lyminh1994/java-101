@@ -5,8 +5,14 @@
 cd /reactive-web
 docker compose up -d
 ```
--> Browser: localhost:${ports:5050} to access pgadmin
-            localhost:${ports:8081} to access mongo-express
+2. Browser: 
+* localhost:${ports:5050} to access pgadmin
+* localhost:${ports:8081} to access mongo-express
+
+Banking Service - This will receive the transaction request as an API call. Then it will orchestrate and send the transaction downstream based upon various criteria to take necessary actions.
+User Notification Service - This will receive fraudulent transactions and notify or alert users to make them aware of the transaction attempt.
+Reporting Service - This will receive any kind of transaction and report in case valid or fraudulent. It will also report to the bank and update or take necessary actions against the card or User Account.
+Account Management Service - This will manage the user’s account and update it in case of valid transactions.
 
 # Read Me First
 
