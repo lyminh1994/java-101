@@ -1,6 +1,6 @@
 package com.minhlq.account.service.impl;
 
-import com.minhlq.account.config.kafka.TransactionProducer;
+import com.minhlq.account.kafka.TransactionProducer;
 import com.minhlq.account.entity.Transaction;
 import com.minhlq.account.entity.User;
 import com.minhlq.account.enums.TransactionStatus;

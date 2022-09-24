@@ -1,4 +1,4 @@
-package com.minhlq.account.config.kafka;
+package com.minhlq.account.kafka;
 
 import com.minhlq.account.entity.Transaction;
 import com.minhlq.account.service.AccountService;

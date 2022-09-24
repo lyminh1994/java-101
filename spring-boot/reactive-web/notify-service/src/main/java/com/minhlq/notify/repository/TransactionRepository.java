@@ -1,6 +1,6 @@
-package com.minhlq.account.repository;
+package com.minhlq.notify.repository;
 
-import com.minhlq.account.entity.Transaction;
+import com.minhlq.notify.entity.Transaction;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
-package com.minhlq.account.repository;
+package com.minhlq.notify.repository;
 
-import com.minhlq.account.entity.User;
+import com.minhlq.notify.entity.User;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;

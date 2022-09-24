@@ -5,10 +5,10 @@ server:
 spring:
 
   # Enable/Disable hot swapping
-  devtools:
-    restart:
-      enabled: true
-      log-condition-evaluation-delta: false
+#  devtools:
+#    restart:
+#      enabled: true
+#      log-condition-evaluation-delta: false
 
   # Datasource Configurations
   data:
@@ -32,6 +32,6 @@ spring:
             max-attempts: 3
             back-off-initial-interval: 100
           destination: transactions
-          group: account-management
+          group: account
         transaction-out-0:
           destination: transactions

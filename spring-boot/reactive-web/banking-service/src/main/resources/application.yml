@@ -1,8 +1,37 @@
 server:
-  address: 9091
-  servlet:
-    context-path: /v1/banking
+  port: 8080
 
+# Configure Spring specific properties
 spring:
-  application:
-    name: banking-service
+
+  # Enable/Disable hot swapping
+  devtools:
+    restart:
+      enabled: false
+      log-condition-evaluation-delta: false
+
+  # Datasource Configurations
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/reactive
+      database: reactive
+
+  # Kafka Configuration
+  cloud:
+    function:
+      definition: consumeTransaction
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          autoCreateTopics: false
+      bindings:
+        consumeTransaction-in-0:
+          consumer:
+            max-attempts: 3
+            back-off-initial-interval: 100
+          destination: transactions
+          group: banking
+        transaction-out-0:
+          destination: transactions

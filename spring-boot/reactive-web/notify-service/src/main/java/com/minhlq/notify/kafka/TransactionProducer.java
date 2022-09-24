@@ -1,6 +1,6 @@
-package com.minhlq.account.config.kafka;
+package com.minhlq.notify.kafka;
 
-import com.minhlq.account.entity.Transaction;
+import com.minhlq.notify.entity.Transaction;
 import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

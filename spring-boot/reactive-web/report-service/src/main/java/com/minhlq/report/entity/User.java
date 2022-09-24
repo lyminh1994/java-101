@@ -1,11 +1,10 @@
-package com.minhlq.account.entity;
+package com.minhlq.report.entity;
 
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -20,13 +19,13 @@ public class User {
   private String email;
   private String address;
   private String country;
-  private String gender;
   private String mobile;
+  private String gender;
   private String cardId;
   private String accountNumber;
   private String accountType;
   private boolean accountLocked;
   private Long fraudulentActivityAttemptCount;
-  @Transient private List<Transaction> validTransactions;
-  @Transient private List<Transaction> fraudulentTransactions;
+  private List<Transaction> validTransactions;
+  private List<Transaction> fraudulentTransactions;
 }
