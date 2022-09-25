@@ -3,18 +3,11 @@ server:
 
 # Configure Spring specific properties
 spring:
-
-  # Enable/Disable hot swapping
-#  devtools:
-#    restart:
-#      enabled: true
-#      log-condition-evaluation-delta: false
-
   # Datasource Configurations
   data:
     mongodb:
       authentication-database: admin
-      uri: mongodb://127.0.0.1:27017/reactive
+      uri: mongodb://mongodb:27017/reactive
       database: reactive
 
   # Kafka Configuration
@@ -24,7 +17,7 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: 127.0.0.1:9092
+          brokers: kafka:9092
           autoCreateTopics: false
       bindings:
         consumeTransaction-in-0:
