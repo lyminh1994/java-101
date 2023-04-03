@@ -1,15 +1,14 @@
 package com.minhlq.banking.service.impl;
 
-import com.minhlq.banking.kafka.TransactionProducer;
 import com.minhlq.banking.entity.Transaction;
 import com.minhlq.banking.enums.TransactionStatus;
+import com.minhlq.banking.kafka.TransactionProducer;
 import com.minhlq.banking.repository.TransactionRepository;
 import com.minhlq.banking.repository.UserRepository;
 import com.minhlq.banking.service.TransactionService;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -85,7 +84,6 @@ public class TransactionServiceImpl implements TransactionService {
                         }));
   }
 
-  @Nullable
   private Transaction syncTransactionToService(
       Transaction transaction, String reportServiceUrl, String accountServiceUrl) {
     return webClient
@@ -117,17 +115,17 @@ public class TransactionServiceImpl implements TransactionService {
     userRepository
         .findByCardId(transaction.getCardId())
         .map(
-            u -> {
+            user -> {
               if (transaction.getStatus().equals(TransactionStatus.INITIATED)) {
                 log.info("Consumed message for processing: {}", transaction);
-                log.info("User details: {}", u);
+                log.info("User details: {}", user);
                 // Check whether the card details are valid or not
-                if (Objects.isNull(u)) {
+                if (Objects.isNull(user)) {
                   transaction.setStatus(TransactionStatus.CARD_INVALID);
                 }
 
                 // Check whether the account is blocked or not
-                else if (u.isAccountLocked()) {
+                else if (user.isAccountLocked()) {
                   transaction.setStatus(TransactionStatus.ACCOUNT_BLOCKED);
                 } else {
                   // Check if it's a valid transaction or not. The Transaction would be considered
@@ -135,7 +133,7 @@ public class TransactionServiceImpl implements TransactionService {
                   // if it has been requested from the same home country of the user, else will be
                   // considered
                   // as fraudulent
-                  if (u.getCountry().equalsIgnoreCase(transaction.getTransactionLocation())) {
+                  if (user.getCountry().equalsIgnoreCase(transaction.getTransactionLocation())) {
                     transaction.setStatus(TransactionStatus.VALID);
                   } else {
                     transaction.setStatus(TransactionStatus.FRAUDULENT);

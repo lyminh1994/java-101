@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -65,7 +65,7 @@ public class ReportingServiceImpl implements ReportingService {
         .subscribe();
   }
 
-  @NotNull
+  @NonNull
   private Mono<User> updateUserTransactions(Transaction transaction) {
     return userRepository
         .findByCardId(transaction.getCardId())
