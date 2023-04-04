@@ -1,5 +1,9 @@
 package com.minhlq.banking.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.ssl.SslContext;
@@ -20,8 +24,15 @@ import reactor.netty.transport.logging.AdvancedByteBufFormat;
 public class ApplicationConfiguration {
 
   @Bean
-  public WebClient getWebClientBuilder() throws SSLException {
+  public ObjectMapper mapper() {
+    return new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+        .configure(SerializationFeature.INDENT_OUTPUT, true)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
 
+  @Bean
+  public WebClient getWebClientBuilder() throws SSLException {
     SslContext sslContext =
         SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build();
 
@@ -31,7 +42,7 @@ public class ApplicationConfiguration {
             .doOnConnected(
                 connection ->
                     connection.addHandlerLast(
-                        new ReadTimeoutHandler(120000, TimeUnit.MILLISECONDS)))
+                        new ReadTimeoutHandler((120 * 1000), TimeUnit.MILLISECONDS)))
             .wiretap(
                 "reactor.netty.http.client.HttpClient",
                 LogLevel.DEBUG,

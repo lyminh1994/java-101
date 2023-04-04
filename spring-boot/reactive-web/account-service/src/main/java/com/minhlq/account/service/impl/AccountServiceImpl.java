@@ -1,9 +1,9 @@
 package com.minhlq.account.service.impl;
 
-import com.minhlq.account.kafka.TransactionProducer;
 import com.minhlq.account.entity.Transaction;
 import com.minhlq.account.entity.User;
 import com.minhlq.account.enums.TransactionStatus;
+import com.minhlq.account.kafka.TransactionProducer;
 import com.minhlq.account.repository.TransactionRepository;
 import com.minhlq.account.repository.UserRepository;
 import com.minhlq.account.service.AccountService;
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -35,6 +34,7 @@ public class AccountServiceImpl implements AccountService {
               if (TransactionStatus.VALID.equals(transaction.getStatus())) {
                 transaction.setStatus(TransactionStatus.SUCCESS);
               }
+
               return transaction;
             })
         .flatMap(transactionRepository::save);
@@ -60,7 +60,6 @@ public class AccountServiceImpl implements AccountService {
         .subscribe();
   }
 
-  @NotNull
   private Mono<User> updateUserTransactions(Transaction transaction) {
     return userRepository
         .findByCardId(transaction.getCardId())
