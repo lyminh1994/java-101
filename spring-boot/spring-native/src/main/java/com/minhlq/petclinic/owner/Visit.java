@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.minhlq.petclinic.visit;
+package com.minhlq.petclinic.owner;
 
 import com.minhlq.petclinic.model.BaseEntity;
 import jakarta.persistence.Column;
@@ -37,12 +37,7 @@ public class Visit extends BaseEntity {
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate date;
 
-  @NotEmpty
-  @Column(name = "description")
-  private String description;
-
-  @Column(name = "pet_id")
-  private Integer petId;
+  @NotEmpty private String description;
 
   /** Creates a new instance of Visit for the current date */
   public Visit() {
@@ -63,13 +58,5 @@ public class Visit extends BaseEntity {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public Integer getPetId() {
-    return this.petId;
-  }
-
-  public void setPetId(Integer petId) {
-    this.petId = petId;
   }
 }

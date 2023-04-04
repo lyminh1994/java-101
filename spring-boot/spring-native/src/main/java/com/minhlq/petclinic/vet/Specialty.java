@@ -15,12 +15,9 @@
  */
 package com.minhlq.petclinic.vet;
 
-import java.io.Serializable;
-
 import com.minhlq.petclinic.model.NamedEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-
 
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).
@@ -29,6 +26,4 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "specialties")
-public class Specialty extends NamedEntity implements Serializable {
-
-}
+public class Specialty extends NamedEntity {}
