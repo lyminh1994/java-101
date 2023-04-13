@@ -1,83 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" th:fragment="layout(template, menu)">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
 
-    <title>PetClinic :: a Spring Framework demonstration</title>
+    <title>Pet Clinic</title>
 
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/static/images/favicon.png}">
-    <link th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/dist/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/petclinic.css}"/>
-
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" role="navigation">
-    <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">
+                <span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="main-navbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" th:remove="all">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" th:remove="all">
+                    <li th:fragment="menuItem(link, active, title, glyph, text)" class="nav-item">
+                        <a th:class="${active == menu ? 'nav-link active' : 'nav-link'}" th:href="@{__${link}__}"
+                           th:title="${title}">
+                            <span th:class="'bi bi-'+${glyph}"></span>
+                            <span th:text="${text}"></span>
+                        </a>
+                    </li>
+                </ul>
 
-                <li th:fragment="menuItem (link,active,title,glyph,text)" th:class="nav-item">
-                    <a th:class="${active == menu ? 'nav-link active' : 'nav-link'}" th:href="@{__${link}__}" th:title="${title}">
-                        <span th:class="'fa fa-'+${glyph}" class="fa fa-home"></span>
-                        <span th:text="${text}">Template</span>
-                    </a>
-                </li>
+                <ul class="nav navbar-nav me-auto">
+                    <li th:replace="~{::menuItem('/', 'home', 'home page', 'house', 'Home')}">
+                        <span class="bi bi-house" aria-hidden="true"></span>
+                        <span>Home</span>
+                    </li>
 
-            </ul>
+                    <li th:replace="~{::menuItem('/owners/find', 'owners', 'find owners', 'search', 'Find owners')}">
+                        <span class="bi bi-search" aria-hidden="true"></span>
+                        <span>Find owners</span>
+                    </li>
 
-            <ul class="nav navbar-nav me-auto">
-                <li th:replace="~{::menuItem('/', 'home', 'home page', 'home', 'Home')}">
-                    <span class="fa fa-home" aria-hidden="true"></span>
-                    <span>Home</span>
-                </li>
+                    <li th:replace="~{::menuItem('/vets.html', 'vets', 'veterinarians', 'list', 'Veterinarians')}">
+                        <span class="bi bi-th-list" aria-hidden="true"></span>
+                        <span>Veterinarians</span>
+                    </li>
 
-                <li th:replace="~{::menuItem('/owners/find', 'owners', 'find owners', 'search', 'Find owners')}">
-                    <span class="fa fa-search" aria-hidden="true"></span>
-                    <span>Find owners</span>
-                </li>
-
-                <li th:replace="~{::menuItem('/vets.html', 'vets', 'veterinarians', 'th-list', 'Veterinarians')}">
-                    <span class="fa fa-th-list" aria-hidden="true"></span>
-                    <span>Veterinarians</span>
-                </li>
-
-                <li th:replace="~{::menuItem('/oups', 'error', 'trigger a RuntimeException to see how it is handled', 'exclamation-triangle', 'Error')}">
-                    <span class="fa exclamation-triangle" aria-hidden="true"></span>
-                    <span>Error</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="container-fluid">
-    <div class="container xd-container">
-
-        <th:block th:insert="${template}"/>
-
-        <br/>
-        <br/>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <img src="" th:src="@{/images/spring-pivotal-logo.png}" alt="Sponsored by Pivotal"/>
-                </div>
+                    <li th:replace="~{::menuItem('/oups', 'error', 'trigger a RuntimeException to see how it is handled', 'exclamation-triangle', 'Error')}">
+                        <span class="bi bi-exclamation-triangle" aria-hidden="true"></span>
+                        <span>Error</span>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+</header>
+
+<main>
+    <section class="container p-5">
+        <div class="row py-lg-5">
+            <div class="col-lg-12 col-md-12 mx-auto">
+                <th:block th:insert="${template}"/>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer mt-auto py-3 text-center bg-light">
+    <div class="container">
+        <img src="" th:src="@{/images/spring-pivotal-logo.png}" alt="Sponsored by Pivotal"/>
     </div>
-</div>
+</footer>
 
 <script th:src="@{/webjars/bootstrap/5.2.3/dist/js/bootstrap.bundle.min.js}"></script>
-
 </body>
 
 </html>

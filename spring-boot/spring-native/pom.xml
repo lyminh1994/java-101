@@ -17,8 +17,8 @@
         <java.version>17</java.version>
 
         <!-- Web dependencies -->
-        <webjars-bootstrap.version>5.2.3</webjars-bootstrap.version>
-        <webjars-font-awesome.version>4.7.0</webjars-font-awesome.version>
+        <bootstrap.version>5.2.3</bootstrap.version>
+        <bootstrap-icons.version>1.10.3</bootstrap-icons.version>
     </properties>
     <dependencies>
         <dependency>
@@ -69,12 +69,12 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${webjars-bootstrap.version}</version>
+            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.webjars.npm</groupId>
-            <artifactId>font-awesome</artifactId>
-            <version>${webjars-font-awesome.version}</version>
+            <artifactId>bootstrap-icons</artifactId>
+            <version>${bootstrap-icons.version}</version>
         </dependency>
         <!-- end of webjars -->
 

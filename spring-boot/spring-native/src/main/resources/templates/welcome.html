@@ -1,13 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout ::layout(~{::body}, 'home')}">
-
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::body}, 'home')}">
 <body>
-<h2 th:text="#{welcome}">Welcome</h2>
-<div class="row">
-    <div class="col-md-12">
-        <img class="img-responsive" th:src="@{/images/pets.png}" src="" alt=""/>
-    </div>
+<h2>Owners</h2>
+<table id="owners" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Telephone</th>
+        <th>Pets</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="owner : ${owners}">
+        <td>
+            <a th:href="@{/owners/__${owner.id}__}" th:text="${owner.firstName + ' ' + owner.lastName}"/>
+        </td>
+        <td th:text="${owner.address}"/>
+        <td th:text="${owner.city}"/>
+        <td th:text="${owner.telephone}"/>
+        <td><span th:text="${#strings.listJoin(owner.pets, ', ')}"/></td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <span>
+      <a th:if="${currentPage > 0}" th:href="@{'?page=0'}" title="First" class="bi bi-chevron-bar-left"></a>
+      <span th:unless="${currentPage > 1}" title="First" class="bi bi-chevron-bar-left"></span>
+    </span>
+    <span>
+      <a th:if="${currentPage > 0}" th:href="@{'?page=__${currentPage}__'}" title="Previous"
+         class="bi bi-chevron-left"></a>
+      <span th:unless="${currentPage > 1}" title="Previous" class="bi bi-chevron-left"></span>
+    </span>
+    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i - 1}" th:href="@{'?page=' + ${i - 1}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i - 1}">[[${i}]]</span>
+    </span>
+    <span>
+      <a th:if="${currentPage <= totalPages}" th:href="@{'?page=__${currentPage}__'}" title="Next"
+         class="bi bi-chevron-right"></a>
+      <span th:unless="${currentPage < totalPages}" title="Next" class="bi bi-chevron-right"></span>
+    </span>
+    <span>
+      <a th:if="${currentPage <= totalPages}" th:href="@{'?page=__${totalPages}__'}" title="Last"
+         class="bi bi-chevron-bar-right"></a>
+      <span th:unless="${currentPage < totalPages}" title="Last" class="bi bi-chevron-bar-right"></span>
+    </span>
 </div>
 </body>
-
 </html>
